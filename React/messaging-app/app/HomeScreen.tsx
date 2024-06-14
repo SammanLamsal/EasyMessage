@@ -23,10 +23,6 @@ const HomeScreen = () => {
 export default HomeScreen;
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#A9A9A9",
-    flex: 1,
-  },
   headerText: {
     resizeMode: "contain",
     color: "#FFF",
