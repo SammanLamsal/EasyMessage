@@ -24,49 +24,47 @@ socket.on("connect", () => {
 socket.on("message", (data: string) => {
   chatsOnScreen.push(data);
 });
-// TODO: make it so users can't send empty strings
+
 const ChatScreen = () => {
   const [message, setMessage] = useState("");
 
-  const chatItems = chatsOnScreen.map((chat) => (
-    <ChatBubble message={String(chat)} isSender={true} />
+  const chatItems = chatsOnScreen.map((chat, i) => (
+    <ChatBubble key={i} message={String(chat)} isSender={true} />
   ));
 
   return (
-    <KeyboardAvoidingView style={styles.view}>
-      <KeyboardAvoidingView style={styles.sendMessageTextBox}>
-        <ListItem style={styles.chatBubbles}>
+    <ScrollView>
+      <KeyboardAvoidingView>
+        <ListItem>
           <ListItem.Content>{chatItems}</ListItem.Content>
         </ListItem>
-        <Input
-          placeholder="Message"
-          value={message}
-          onChangeText={(text) => setMessage(text)}
-        />
-        <Pressable
-          onPressIn={() => {
-            if (message) {
-              socket.emit("message", message);
-            }
-          }}
-          onPressOut={() => setMessage("")}
-        >
-          <Image source={require("../img/send_icon.svg")} />
-        </Pressable>
+        <View style={styles.sendIconAndTextBox}>
+          <Input
+            placeholder="Message"
+            value={message}
+            onChangeText={(text) => setMessage(text)}
+          />
+          <Pressable
+            onPressIn={() => {
+              if (message) {
+                socket.emit("message", message);
+              }
+            }}
+            onPressOut={() => setMessage("")}
+          >
+            <Image source={require("../img/send_icon.svg")} />
+          </Pressable>
+        </View>
       </KeyboardAvoidingView>
-    </KeyboardAvoidingView>
+    </ScrollView>
   );
 };
 
 export default ChatScreen;
 
 const styles = StyleSheet.create({
-  view: {
-    flex: 1,
+  sendIconAndTextBox: {
+    display: "flex",
+    position: "relative",
   },
-  sendMessageTextBox: {
-    position: "absolute",
-    bottom: 0,
-  },
-  chatBubbles: {},
 });

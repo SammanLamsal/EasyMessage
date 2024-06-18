@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 20,
     marginVertical: 5,
+    flexShrink: 1,
   },
   senderBubble: {
     backgroundColor: "#007AFF",

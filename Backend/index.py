@@ -22,7 +22,7 @@ app.mount("/", sio_app)
 
 @sio_server.event
 async def message(sid, message):
-    print(f"Message from {sid}")
+    print(f"Message {message} from {sid}")
     await sio_server.send(message)
 
 if __name__ == "__main__":
