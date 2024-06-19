@@ -15,20 +15,26 @@ import { io } from "socket.io-client";
 import { ListItem } from "@rneui/base";
 
 const socket = io("ws://localhost:8000");
-const chatsOnScreen: String[] = [];
-
-socket.on("connect", () => {
-  console.log("connected");
-});
-
-socket.on("message", (data: string) => {
-  chatsOnScreen.push(data);
-});
 
 const ChatScreen = () => {
   const [message, setMessage] = useState("");
+  const [chats, setChats] = useState<String[]>([]);
+  useEffect(() => {
+    socket.on("connect", () => {
+      console.log("connected");
+    });
 
-  const chatItems = chatsOnScreen.map((chat, i) => (
+    socket.on("message", (data: string) => {
+      setChats((prevChats) => [...prevChats, data]);
+    });
+
+    return () => {
+      socket.off("message");
+      socket.off("connect");
+    };
+  }, []);
+
+  const chatItems = chats.map((chat, i) => (
     <ChatBubble key={i} message={String(chat)} isSender={true} />
   ));
 
