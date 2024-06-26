@@ -8,7 +8,7 @@ const HomeScreen = () => {
   return (
     <View>
       <View style={styles.headerContainer}>
-        <Text style={styles.headerText}>Signal Clone</Text>
+        <Text style={styles.headerText}>EasyMessage</Text>
         <Link href="/AddChatScreen/" asChild>
           <Button style={styles.button}>Add Chat</Button>
         </Link>

@@ -58,7 +58,7 @@ const ChatScreen = () => {
             }}
             onPressOut={() => setMessage("")}
           >
-            <Image source={require("../img/send_icon.svg")} />
+            <Image source={require("../../img/send_icon.svg")} />
           </Pressable>
         </View>
       </KeyboardAvoidingView>
